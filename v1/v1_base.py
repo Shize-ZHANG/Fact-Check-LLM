@@ -11,7 +11,7 @@ from openai import OpenAI
 LABELS = ["supports", "refutes", "NOT ENOUGH INFO"]
 
 SYSTEM_PROMPT = (
-    "你是严格的事实核验分类器。只依据输入的中文陈述句本身，不查阅任何外部资料。\n"
+    "你是严格的事实核验分类器。只依据输入的中文陈述句本身。\n"
     "请将该陈述句的事实状态判为以下三者之一，并且只输出其中一个标签（不要解释）：\n"
     "supports（支持为真）\n"
     "refutes（反驳为假）\n"
@@ -68,6 +68,7 @@ def main():
     ap.add_argument("--input", required=True, help="输入 JSONL（train/dev/test 均可）")
     ap.add_argument("--output", required=True, help="输出 JSONL（包含 claim / predicted_label / label）")
     ap.add_argument("--base_url", default=f"http://127.0.0.1:{os.environ.get('VLLM_PORT','8009')}",
+ 
                     help="vLLM OpenAI 端点，如 http://127.0.0.1:8009")
     ap.add_argument("--api_key", default=os.environ.get("OPENAI_API_KEY","sk-xxx"))
     ap.add_argument("--model", default=os.environ.get("MODEL_NAME","qwen3-32b"))
